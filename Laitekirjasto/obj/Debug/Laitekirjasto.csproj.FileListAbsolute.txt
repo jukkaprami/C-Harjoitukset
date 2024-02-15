@@ -1,0 +1,7 @@
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\bin\Debug\Laitekirjasto.exe.config
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\bin\Debug\Laitekirjasto.exe
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\bin\Debug\Laitekirjasto.pdb
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\obj\Debug\Laitekirjasto.csproj.AssemblyReference.cache
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\obj\Debug\Laitekirjasto.csproj.CoreCompileInputs.cache
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\obj\Debug\Laitekirjasto.exe
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laitekirjasto\obj\Debug\Laitekirjasto.pdb

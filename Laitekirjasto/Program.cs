@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,17 @@ namespace Laitekirjasto
 
         int warranty = 12;
         public int Warranty { get { return warranty; } set { warranty = value; } }
+
+
+        string processorType = "N/A";
+        public string ProcessorType { get { return processorType; } set { processorType = value; } }
+
+        int amountRAM = 0;
+        public int AmountRam { get { return amountRAM; } set { amountRAM = value; } }
+
+        int storageCapacity = 0;
+        public int StorageCapacity { get { return storageCapacity; } set { storageCapacity = value; } }
+
 
         // Konstruktori eli olionmuodostin (constructor) ilman argumentteja
         public Device()
@@ -53,21 +65,33 @@ namespace Laitekirjasto
 
     class Computer : Device
     {
-        // kentät ja ominaisuudet
-        string processorType;
-        public string ProcessorType { get { return processorType; } set { processorType = value; } }
-
-        int amountRAM;
-        public int AmountRam { get { return amountRAM; } set { amountRAM = value; } }
-
-        int storageCapacity;
-        public int StorageCapacity { get { return storageCapacity; } set { storageCapacity = value; } }
 
         // Konstruktorit
         public Computer() : base()
         { }
+
+        public Computer(string name) : base(name)
+        { }
+
+        // Muut metodit
+        public void ShowInfo()
+        {
+            Console.WriteLine("Koneen nimi: " + Name);
+            Console.WriteLine("Prosessori: " + ProcessorType);
+            Console.WriteLine("Keskusmuisti: " + AmountRam);
+            Console.WriteLine("Levytila: " + StorageCapacity);
+        }
     }
 
+    // Tablettien luokka, perii laiteluokan
+    class Tablet : Device
+    {
+        // Kentät
+        string operatingSystem;
+        public string OperatingSystem { get { return operatingSystem; } set { operatingSystem = value; } }
+        bool stylusEnabled = false;
+        public bool StylusEnabled { get { return stylusEnabled; } set { stylusEnabled = value; } }
+    }
     // Pääohjelman luokka, josta tulee Program.exe
     internal class Program
     {
@@ -84,9 +108,19 @@ namespace Laitekirjasto
             Console.WriteLine("Ostopäivä oli: " + laite.PurchaseDate);
 
             // Luodaan uusi tietokone, joka perii laiteluokan (Device) ominaisuudet ja metodit
-
             Computer tietokone1 = new Computer();
-            Console.WriteLine("Uuden tietokoneen nimi on: " + tietokone1.Name);
+
+            // Asetetaan Prosessori-ominaisuuden arvo
+            tietokone1.ProcessorType = "Intel I7";
+            tietokone1.AmountRam = 16;
+
+            Console.WriteLine("Uuden tietokoneen nimi on: " + tietokone1.Name + " ja siinä on " + tietokone1.ProcessorType + " -prosessori ja " + tietokone1.AmountRam + " GB keskusmuistia");
+
+            // Luodaan uusi nimetty tietokone toisella konstruktorilla
+            Computer tietokone2 = new Computer("Mikan läppäri");
+            tietokone2.ProcessorType = "Intel Core i7 vPro";
+            tietokone2.AmountRam = 32;
+            tietokone2.ShowInfo();
 
 
 
