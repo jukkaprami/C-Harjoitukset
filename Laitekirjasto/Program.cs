@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -93,7 +94,22 @@ namespace Laitekirjasto
             Console.WriteLine("Keskusmuisti: " + AmountRam);
             Console.WriteLine("Levytila: " + StorageCapacity);
 
+        }
 
+        // Lasketaan takuun päättymispäivä, huomaa ISO-standardin mukaiset päivämäärät: vuosi-kuukausi-päivä
+        public void CalculateWarrantyEndingDate()
+        {
+            // Muutetaan päivämäärä merkkijono päivämäärä-kellonaika-muotoon
+            DateTime startDate = DateTime.ParseExact(this.PurchaseDate,
+                                        "yyyy-MM-dd",
+                                         CultureInfo.InvariantCulture);
+
+            // Lisätään takuun kesto
+            DateTime endDate = startDate.AddMonths(this.Warranty);
+
+            // Muunnetaan päivämäärä ISO-standardin mukaiseen muotoon
+            string isoDate = endDate.ToString("s");
+            Console.WriteLine("Takuu päättyy: " + isoDate);
         }
 
     }
@@ -153,9 +169,21 @@ namespace Laitekirjasto
         // ---------------------------
         static void Main(string[] args)
         {
+            // Luodaan vektorit ja laskurit niiden alkioille
+            Computer[] computers = new Computer[10];
+            Tablet[] tablets = new Tablet[10];
+            int numberOfComputers = 0;
+            int numberOfTablets = 0;
+
+            // Vaihtoehtoisesti luodaan pinot laitteille
+            Stack<Computer> computerStack = new Stack<Computer>();
+
+
             // Ikuinen silmukka pääohjelman käynnissä pitämiseen
             while (true)
             {
+
+
                 Console.WriteLine("Minkä laitteen tietot tallenetaan?");
                 Console.Write("1 tietokone, 2 tabletti ");
                 string type = Console.ReadLine();
@@ -171,7 +199,7 @@ namespace Laitekirjasto
                         Console.Write("Nimi: ");
                         string computerName = Console.ReadLine();
                         Computer computer = new Computer(computerName);
-                        Console.Write("Ostopäivä: ");
+                        Console.Write("Ostopäivä muodossa vvvv-kk-pp: ");
                         computer.PurchaseDate = Console.ReadLine();
                         Console.Write("Hankintahinta: ");
                         string price = Console.ReadLine();
@@ -199,6 +227,7 @@ namespace Laitekirjasto
                         {
 
                             Console.WriteLine("Virheellinen takuutieto, vain kuukausien määrä kokonaislukuna " + ex.Message);
+                            break;
                         }
 
                         Console.Write("Prosessorin tyyppi: ");
@@ -214,6 +243,7 @@ namespace Laitekirjasto
                         {
 
                             Console.WriteLine("Virheellinen muistin määrä, vain kokonaisluvut sallittu " + ex.Message);
+                            break;
                         }
 
                         Console.Write("Tallennuskapasiteetti (GB): ");
@@ -227,6 +257,7 @@ namespace Laitekirjasto
                         {
 
                             Console.WriteLine("Virheellinen tallennustilan koko, vain kokonaisluvut sallittu " + ex.Message);
+                            break;
                         }
 
 
@@ -234,6 +265,25 @@ namespace Laitekirjasto
                         // Näytetään olion tiedot metodien avulla
                         computer.ShowPurchaseInfo();
                         computer.ShowBasicTechnicalInfo();
+
+                        try
+                        {
+                            computer.CalculateWarrantyEndingDate();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Ostopäivä virheellinen " + ex.Message);
+                            break;
+                        }
+
+                        // Lisätään tietokone vektoriin
+                        computers[numberOfComputers] = computer;
+                        Console.WriteLine("Vektorin indeksi on nyt " + numberOfComputers);
+                        numberOfComputers++;
+                        Console.WriteLine("Nyt syötettiin " + numberOfComputers + ". kone");
+
+                        // Vaihtoehtoisesti lisätään tietokone pinoon
+                        computerStack.Push(computer);
 
                         break;
 
@@ -256,6 +306,10 @@ namespace Laitekirjasto
                 continueAnswer = continueAnswer.ToLower();
                 if (continueAnswer == "e")
                 {
+                    // Vektorissa on se määrä alkioita, jotka sille on alustuvaiheessa annettu
+                    Console.WriteLine("Tietokonevektorissa on " + computers.Length + " alkiota");
+
+                    Console.WriteLine("Pinossa on nyt " + computerStack.Count + " tietokonetta");
                     break;
                 }
             }
