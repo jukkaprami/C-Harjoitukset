@@ -16,7 +16,8 @@ namespace Laitekirjasto
     // LUOKKAMÄÄRITYKSET
     // =================
 
-    // Yleinen laiteluokka, yliluokka tietokoneille, tableteille ja puhelimille
+    // Yleinen laiteluokka, yliluokka tietokoneille, tableteille ja puhelimille, muista määritellä serialisoitavaksi
+
     [Serializable]
     class Device
     {
@@ -123,7 +124,7 @@ namespace Laitekirjasto
 
     }
 
-    // Tietokoneiden luokka, perii ominaisuuksia ja metodeja laiteluokasta Device
+    // Tietokoneiden luokka, perii ominaisuuksia ja metodeja laiteluokasta Device, muista määritellä myös yliluokka serialsoitavaksi
 
     [Serializable]
     class Computer : Device
@@ -180,31 +181,19 @@ namespace Laitekirjasto
         // ---------------------------
         static void Main(string[] args)
         {
-            // Määritellään binääridatan muodostaja serialisointia varte
+            // Määritellään binääridatan muodostaja serialisointia varten
             IFormatter formatter = new BinaryFormatter();
-
-            // Määritellään file stream tietokoneiden tietojen vektorimuotoista tallennusta varten -> huono ratkaisu
-            Stream writeStream = new FileStream("ComputerData.dat", FileMode.Create, FileAccess.Write);
 
             // Määritellään toinen file stream pinotallenusta varten
             Stream stackWriteStream = new FileStream("ComputerStack.dat", FileMode.Create, FileAccess.Write);
 
-
-
-            // Luodaan vektorit ja laskurit niiden alkioille
-            Computer[] computers = new Computer[10];
-            Tablet[] tablets = new Tablet[10];
-            int numberOfComputers = 0;
-            int numberOfTablets = 0;
-
-            // Vaihtoehtoisesti luodaan pinot laitteille
+            // Luodaan pino laitteille, ei tarvetta tietää määrää etukäteen
             Stack<Computer> computerStack = new Stack<Computer>();
 
 
             // Ikuinen silmukka pääohjelman käynnissä pitämiseen
             while (true)
             {
-
 
                 Console.WriteLine("Minkä laitteen tietot tallenetaan?");
                 Console.Write("1 tietokone, 2 tabletti ");
@@ -226,6 +215,7 @@ namespace Laitekirjasto
                         Console.Write("Hankintahinta: ");
                         string price = Console.ReadLine();
 
+                        // Tehdään tietotyyppimuunnokset                         virheenkäsittelyrakentaassa
                         try
                         {
                             computer.Price = double.Parse(price);
@@ -282,8 +272,6 @@ namespace Laitekirjasto
                             break;
                         }
 
-
-
                         // Näytetään olion tiedot metodien avulla
                         computer.ShowPurchaseInfo();
                         computer.ShowBasicTechnicalInfo();
@@ -298,13 +286,7 @@ namespace Laitekirjasto
                             break;
                         }
 
-                        // Lisätään tietokone vektoriin
-                        computers[numberOfComputers] = computer;
-                        Console.WriteLine("Vektorin indeksi on nyt " + numberOfComputers);
-                        numberOfComputers++;
-                        Console.WriteLine("Nyt syötettiin " + numberOfComputers + ". kone");
-
-                        // Vaihtoehtoisesti lisätään tietokone pinoon
+                        // Lisätään tietokone pinoon
                         computerStack.Push(computer);
 
                         break;
@@ -328,59 +310,35 @@ namespace Laitekirjasto
                 continueAnswer = continueAnswer.ToLower();
                 if (continueAnswer == "e")
                 {
-                    // Vektorissa on se määrä alkioita, jotka sille on alustuvaiheessa annettu
-                    Console.WriteLine("Tietokonevektorissa on " + computers.Length + " alkiota");
-
+                    // Kerrotaan pinossa olevien olioiden määrä
                     Console.WriteLine("Pinossa on nyt " + computerStack.Count + " tietokonetta");
 
-
-                    // Tallennetaan koneiden tiedot vektorina tiedostoon serialisoimalla
-
-                    formatter.Serialize(writeStream, computers);
-                    writeStream.Close();
-
-                    // Tallennetaan koneiden tidot pinomuodossa tiedostoon
+                    // Tallennetaan koneiden tiedot pinomuodossa tiedostoon
                     formatter.Serialize(stackWriteStream, computerStack);
                     stackWriteStream.Close();
 
-                    // Määritellään file stream tietokoneiden tietojen lukemista varten
-
-                    Stream readStream = new FileStream("ComputerData.dat", FileMode.Open, FileAccess.Read);
-
-                    Computer[] savedComputers;
-
-                    savedComputers = (Computer[])formatter.Deserialize(readStream);
-
-                    readStream.Close();
-
+                    // Luodaan file stream tiedoston lukua varten
                     Stream readStackStream = new FileStream("ComputerStack.dat", FileMode.Open, FileAccess.Read);
 
+                    // Määritellään uusi pino luettuja tietoja varten
                     Stack<Computer> savedStack;
+
+                    // Deserialisoidaan tiedosto pinoon ja suljetaan tiedosto
                     savedStack = (Stack<Computer>)formatter.Deserialize(readStackStream);
                     readStackStream.Close();
 
-                    // Tulostetaan ruudulle vektorina tallennettun ensimmäisen koneen nimi
-                    Console.WriteLine("Levylle on tallennettu " + savedComputers.Length + " koneen tiedot");
-                    Console.WriteLine(savedComputers[0].Name);
-                    savedComputers[0].CalculateWarrantyEndingDate();
-
-                    // Jos luetaan indeksi, jossa koneen tiedot puuttuvat (null) sovellus kaatuu -> vektorin käyttö ei ole järkevää
-
                     // Pinoon tallennetaan vain todellisuudessa syötetyt koneet, voidaan lukea koko pino silmukassa
-
                     foreach (var item in savedStack)
                     {
                         Console.WriteLine("Koneen " + item.Name + " takuu päättyy");
                         item.CalculateWarrantyEndingDate();
                     }
 
+                    // Poistutaan ikuisesta silmukasta ja päätetään ohjelma
                     break;
-
-
 
                 }
             }
-
 
             // Pidetään ikkuna auki, kunnes käyttäjä painaa <enter>
             Console.ReadLine();
