@@ -1,0 +1,7 @@
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\bin\Debug\SerialisointiEsimerkki.exe.config
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\bin\Debug\SerialisointiEsimerkki.exe
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\bin\Debug\SerialisointiEsimerkki.pdb
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\obj\Debug\SerialisointiEsimerkki.csproj.AssemblyReference.cache
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\obj\Debug\SerialisointiEsimerkki.csproj.CoreCompileInputs.cache
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\obj\Debug\SerialisointiEsimerkki.exe
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\SerialisointiEsimerkki\obj\Debug\SerialisointiEsimerkki.pdb
