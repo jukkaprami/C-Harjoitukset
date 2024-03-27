@@ -1,0 +1,7 @@
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\bin\Debug\LaiterekisteriDb.exe.config
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\bin\Debug\LaiterekisteriDb.exe
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\bin\Debug\LaiterekisteriDb.pdb
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\obj\Debug\LaiterekisteriDb.csproj.AssemblyReference.cache
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\obj\Debug\LaiterekisteriDb.csproj.CoreCompileInputs.cache
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\obj\Debug\LaiterekisteriDb.exe
+C:\Users\Jukka\Documents\GitHub\Csharp-Harjoitukset\Laiterekisteri\LaiterekisteriDb\obj\Debug\LaiterekisteriDb.pdb
